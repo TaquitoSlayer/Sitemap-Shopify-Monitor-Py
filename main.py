@@ -79,29 +79,31 @@ def monitor(url, proxy, lock, task_num):
         initial_product_list = products.List(url, proxy)
     except requests.exceptions.RequestException as err:
         logging.info(f'{url.upper()} - {task_num} - {task_num}: ERROR: ' + err)
+    try:
+        while True:
+            try:
+                new_product_list = products.List(url, proxy)
+            except requests.exceptions.RequestException as err:
+                logging.info(f'{url.upper()} - {task_num}: ERROR: ' + err)
 
-    while True:
-        try:
-            new_product_list = products.List(url, proxy)
-        except requests.exceptions.RequestException as err:
-            logging.info(f'{url.upper()} - {task_num}: ERROR: ' + err)
+            diff = list(set(new_product_list) - set(initial_product_list))
+            if bool(diff) == True:
+                logging.info(f'{url.upper()} - {task_num}: NEW PRODUCT FOUND!')
+                diff = set(diff)
+                for product in diff:
+                    lock.acquire()
+                    check_if_posted(product)
+                    lock.release()
+                    initial_product_list = new_product_list
+                    time.sleep(2)
 
-        diff = list(set(new_product_list) - set(initial_product_list))
-        if bool(diff) == True:
-            logging.info(f'{url.upper()} - {task_num}: NEW PRODUCT FOUND!')
-            diff = set(diff)
-            for product in diff:
-                lock.acquire()
-                check_if_posted(product)
-                lock.release()
-                initial_product_list = new_product_list
-                time.sleep(2)
-
-        elif bool(diff) == False:
-            # logging.info(f'{url.upper()} - {task_num}: NO CHANGES FOUND')
-            pass
-        else:
-            pass
+            elif bool(diff) == False:
+                # logging.info(f'{url.upper()} - {task_num}: NO CHANGES FOUND')
+                pass
+            else:
+                pass
+    except Exception as e:
+        print(e)
 
 def main(task_num, url, lock, delay):
     fucked = False
