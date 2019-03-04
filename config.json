@@ -1,0 +1,6 @@
+{
+    "delay": "5",
+    "tasks-per-site": "1",
+    "webhook": ["https://discordapp.com/api/webhooks/550734801754390549/mcLevCWtDnyK7cJ2Gul0HS-YFIDu9E9jkFQPrwWQGh6b9gIHkKRt0inmWX5BuDJ6S6eq",
+                "https://discordapp.com/api/webhooks/550734982084034561/JQDmJv9qO6bD19sqIR9lN4Abx4lNJqGNvp-1I5OUM_XdlnzW6lLFqrQrEucsg_wCsL78"]
+}
