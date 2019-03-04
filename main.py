@@ -87,7 +87,6 @@ def monitor(url, proxy, lock, task_num):
             logging.info(f'{url.upper()} - {task_num}: ERROR: ' + err)
 
         diff = list(set(new_product_list) - set(initial_product_list))
-
         if bool(diff) == True:
             logging.info(f'{url.upper()} - {task_num}: NEW PRODUCT FOUND!')
             diff = set(diff)
@@ -97,7 +96,6 @@ def monitor(url, proxy, lock, task_num):
                 lock.release()
                 initial_product_list = new_product_list
                 time.sleep(2)
-
 
         elif bool(diff) == False:
             # logging.info(f'{url.upper()} - {task_num}: NO CHANGES FOUND')

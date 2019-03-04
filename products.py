@@ -1,11 +1,9 @@
 import requests
 import re
 import json
-import cfscrape
 import bs4 as bs
 
-L = requests.session()
-r = cfscrape.create_scraper(sess=L)
+r = requests.session()
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15'}
 
 def generate_sitelist():
@@ -84,13 +82,6 @@ def get_info(url):
                         variants[vid] = name
                     else:
                         pass
-        elif 'undefeated' in url:
-            tags = resp_json['product']['tags']
-            tags = re.findall(r'''size_(.*)?, size_''', tags)
-            tags = tags[0].replace('size_', '')
-            tags = tags.replace('-', '.')
-            tags = tags.replace(' ', '')
-            tags = tags.split(',')
         else:
             for variant in variantz:
                 vid = variant['id']
