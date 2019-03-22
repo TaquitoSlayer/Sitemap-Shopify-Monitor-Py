@@ -1,6 +1,6 @@
 {
     "delay": "5",
     "tasks-per-site": "1",
-    "webhook": ["https://discordapp.com/api/webhooks/550734801754390549/mcLevCWtDnyK7cJ2Gul0HS-YFIDu9E9jkFQPrwWQGh6b9gIHkKRt0inmWX5BuDJ6S6eq",
-                "https://discordapp.com/api/webhooks/550734982084034561/JQDmJv9qO6bD19sqIR9lN4Abx4lNJqGNvp-1I5OUM_XdlnzW6lLFqrQrEucsg_wCsL78"]
+    "webhook": ["https://discordapp.com/api/webhooks/558472254086709248/bKVwrIZmvzhdhC8rxBHXGHGzQiSsZ08ZYP7meped3szMp5ykFtw-XQV1nKz3AJwLQgxF",
+                "https://discordapp.com/api/webhooks/528491503274688513/pJYWYsOu4o1fpLygq1iOQI0mO4MxLKrY7NN7EVUjfJNBqL46-TpwyRgt8prwyk6mqphq"]
 }

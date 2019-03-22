@@ -26,7 +26,7 @@ def config():
 
 # executing now to prevent confusion
 tasks, delay, webhooks = config()
-print(f'KITH MONITOR BY @TAQUITOSLAYER - {tasks} TASKS PER SITE WITH A DELAY OF {delay} SECONDS PER PROXY BAN')
+print(f'SHOPIFY MONITOR BY @TAQUITOSLAYER - {tasks} TASKS PER SITE WITH A DELAY OF {delay} SECONDS PER PROXY BAN')
 
 def check_if_posted(url):
     if url in urls:
@@ -74,15 +74,18 @@ def channel_fill():
             time.sleep(float(delay))
             pass
 
-def monitor(url, proxy, lock, task_num):
+def monitor(url, proxy, task_num):
     try:
         initial_product_list = products.List(url, proxy)
+        print(initial_product_list)
+        # initial_product_list = products.List2()
     except requests.exceptions.RequestException as err:
         logging.info(f'{url.upper()} - {task_num} - {task_num}: ERROR: ' + err)
     try:
         while True:
             try:
                 new_product_list = products.List(url, proxy)
+                # new_product_list = products.List3()
             except requests.exceptions.RequestException as err:
                 logging.info(f'{url.upper()} - {task_num}: ERROR: ' + err)
 
@@ -91,26 +94,24 @@ def monitor(url, proxy, lock, task_num):
                 logging.info(f'{url.upper()} - {task_num}: NEW PRODUCT FOUND!')
                 diff = set(diff)
                 for product in diff:
-                    lock.acquire()
                     check_if_posted(product)
-                    lock.release()
                     initial_product_list = new_product_list
                     time.sleep(2)
 
             elif bool(diff) == False:
-                # logging.info(f'{url.upper()} - {task_num}: NO CHANGES FOUND')
+                logging.info(f'{url.upper()} - {task_num}: NO CHANGES FOUND')
                 pass
             else:
                 pass
     except Exception as e:
         print(e)
 
-def main(task_num, url, lock, delay):
+def main(task_num, url, delay):
     fucked = False
     while not fucked:
         proxy_picked = proxyhandler.proxy()
         try:
-            monitor(url, proxy_picked, lock, task_num)
+            monitor(url, proxy_picked, task_num)
             fucked = True
         # simplejson.errors.JSONDecodeError
         except Exception as e:
@@ -120,8 +121,7 @@ def main(task_num, url, lock, delay):
             pass
 
 if __name__ == '__main__':
-    lock = Lock()
     for site in sites:
         for i in range(int(tasks)):
-            p = Process(target=main, args=(i+1, site, lock, delay))
+            p = Process(target=main, args=(i+1, site, delay))
             p.start() # starting workers

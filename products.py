@@ -26,6 +26,28 @@ def List(url, proxy):
     
     return product_urls
 
+def List2():
+    product_urls = []
+    # sitemap_products = []
+    # dump = r.get(url, headers = headers, proxies={"http": proxy, "https": proxy})
+    with open('sitemap2.xml') as sitemap:
+        soup = bs.BeautifulSoup(sitemap, 'lxml')
+        for product in soup.find_all('loc'):
+            product_urls.append(product.get_text())
+    
+    return product_urls
+
+def List3():
+    product_urls = []
+    # sitemap_products = []
+    # dump = r.get(url, headers = headers, proxies={"http": proxy, "https": proxy})
+    with open('sitemap.xml') as sitemap:
+        soup = bs.BeautifulSoup(sitemap, 'lxml')
+        for product in soup.find_all('loc'):
+            product_urls.append(product.get_text())
+    
+    return product_urls
+
 
 def get_info(url):
     variants = {}
