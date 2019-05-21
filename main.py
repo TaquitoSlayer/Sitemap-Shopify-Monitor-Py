@@ -130,15 +130,15 @@ def main(task_num, url, delay):
     fucked = False
     while not fucked:
         proxy_picked = proxyhandler.proxy()
-        # try:
-        monitor(url, proxy_picked, task_num)
-        fucked = True
-        # simplejson.errors.JSONDecodeError
-        # except Exception as e:
-        #     logging.info(f'{url.upper()} SOMETHING WRONG, PROBABLY PROXY BAN - {task_num}: {proxy_picked} - SLEEPING FOR {delay} SECONDS')
-        #     logging.info(f'{e}')
-        #     time.sleep(float(delay))
-        #     pass
+        try:
+            monitor(url, proxy_picked, task_num)
+            fucked = True
+            simplejson.errors.JSONDecodeError
+        except Exception as e:
+            logging.info(f'{url.upper()} SOMETHING WRONG, PROBABLY PROXY BAN - {task_num}: {proxy_picked} - SLEEPING FOR {delay} SECONDS')
+            logging.info(f'{e}')
+            time.sleep(float(delay))
+            pass
 
 if __name__ == '__main__':
     for site in sites:
