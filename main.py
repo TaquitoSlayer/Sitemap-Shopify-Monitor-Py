@@ -99,14 +99,12 @@ def channel_fill():
 def monitor(url, proxy, task_num):
     try:
         initial_product_list = products.List(url, proxy)
-        initial_product_list = []
     except requests.exceptions.RequestException as err:
         logging.info(f'{url.upper()} - {task_num} - {task_num}: ERROR: ' + err)
         pass
     while True:
         try:
             new_product_list = products.List(url, proxy)
-            new_product_list = ['https://kith.com/products/nike-shox-tl-triple-black']
         except requests.exceptions.RequestException as err:
             logging.info(f'{url.upper()} - {task_num} - {task_num}: ERROR: ' + err)
             pass
